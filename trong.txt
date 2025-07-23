@@ -1,0 +1,17 @@
+while true do
+    wait(1)
+    local args = {
+        [1] = "BanditQuest1",
+        [2] = "1"
+    }
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest", unpack(args))
+
+    local enemy = game:GetService("Workspace").Enemies:FindFirstChild("Bandit")
+    if enemy then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = enemy.HumanoidRootPart.CFrame
+        repeat
+            wait(0.1)
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Attack")
+        until enemy.Humanoid.Health <= 0 or enemy == nil
+    end
+end
